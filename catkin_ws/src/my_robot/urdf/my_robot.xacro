@@ -10,6 +10,10 @@
     <child link="chassis" />
   </joint>
 
+  <gazebo reference="chassis">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
   <link name='camera'>
     <pose>0 0 0 0 0 0</pose>
 
