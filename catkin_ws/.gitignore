@@ -1,4 +1,4 @@
 .catkin_workspace
-/build
+build/
 /devel
-/src/build
+
