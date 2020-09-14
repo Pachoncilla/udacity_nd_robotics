@@ -3,6 +3,7 @@
 //
 
 #include "ros/ros.h"
+#include "process_image.h"
 #include "ball_chaser/DriveToTarget.h"
 #include <sensor_msgs/JointState.h>
 #include <sensor_msgs/Image.h>
@@ -19,47 +20,21 @@ void drive_robot(float lin_x, float ang_z)
   srv.request.angular_z = ang_z;
 
   if (!client.call(srv))
-    ROS_ERROR("Failed to call service command_bot");
+    ROS_ERROR("Failed to call service command_robot");
 }
 
 // This callback function continuously executes and reads the image data
-void process_image_callback(const sensor_msgs::Image img)
+void process_image_callback(const sensor_msgs::Image& img)
 {
 
   // Loop through each pixel in the image and check if there's a bright white one
   // Then, identify if this pixel falls in the left, mid, or right side of the image
   // Depending on the white ball position, call the drive_bot function and pass velocities to it
   // Request a stop when there's no white ball seen by the camera
-  int white_pixel = 255;
-  int white_index{-1};
 
-  for (int i{0}; i < img.height + img.step; ++i){
-    if (img.data[i] == white_pixel) {
-      white_index = i;
-      break;
-    }
-  }
-
-  if (white_index == -1) {
-    drive_robot(0.0, 0.0);
-    ROS_INFO_STREAM("Command don't move");
-    return;
-  }
-
-  int col = white_index%img.width;
-  if (col <= img.width/4) {
-    // move to left
-    drive_robot(0.5, 0.0);
-    ROS_INFO_STREAM("Command move to the left");
-  } else if (col <= 3*img.width/4) {
-    // move to right
-    drive_robot(0.0, 0.5);
-    ROS_INFO_STREAM("Command move forward");
-  } else{
-    // move forward
-    drive_robot(0.0, -0.5);
-    ROS_INFO_STREAM("Command move to the right");
-  }
+  int white_index = find_white_index(img);
+  auto velocity = calculate_linear_and_angular_velocity(white_index, img.width);
+  drive_robot(velocity[0], velocity[1]);
 
 }
 
@@ -71,7 +46,7 @@ int main(int argc, char** argv){
 
   // the node is a client of the service to move the robot
   client = n.serviceClient<ball_chaser::DriveToTarget>
-          ("/ball_chaser/command_bot");
+          ("/ball_chaser/command_robot");
 
   // the node subscribes to the rgb_camera/image_raw topic
   ros::Subscriber image_subscriber = n.subscribe("/camera/rgb/image_raw", 10,

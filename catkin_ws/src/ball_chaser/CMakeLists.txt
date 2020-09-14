@@ -55,8 +55,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate services in the 'srv' folder
 add_service_files(
-   FILES
-   DriveToTarget.srv
+        FILES
+        DriveToTarget.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -203,4 +203,5 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+add_subdirectory(test)
 add_subdirectory(src)
