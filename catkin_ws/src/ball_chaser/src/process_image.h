@@ -8,10 +8,7 @@
 #include <vector>
 #include <sensor_msgs/Image.h>
 
-// the output of this function is an index independent on the image step.
-// with this index, the width and the height it is possible to calculate the
-// row and column values.
-// This simple implementation returns the first white pixel index found
+// the output of this function is the column of the center of the ball.
 #include <vector>
 int find_white_index(const sensor_msgs::Image& img){
 
