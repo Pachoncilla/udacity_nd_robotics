@@ -8,17 +8,23 @@
 #include <vector>
 #include <sensor_msgs/Image.h>
 
+// the output of this function is an index independent on the image step.
+// with this index, the width and the height it is possible to calculate the
+// row and column values.
+// This simple implementation returns the first white pixel index found
 int find_white_index(const sensor_msgs::Image& img){
 
   int white_pixel = 255;
   int white_index{-1};
 
   int pixel{0};
-  for (int i{0}; i < img.height * img.step; i = i+3){
-    if (img.data[i] == white_pixel && img.data[i+1] == white_pixel &&
-        img.data[i+2] == white_pixel) {
-      white_index = pixel;
+  int pixel_depth = img.step / img.width;
+  for (int i{0}; i < img.height * img.step; i = i+pixel_depth){
+    bool is_white{true};
+    for (int d{0}; d < pixel_depth; ++d) {
+      is_white &= img.data[i+d] == white_pixel;
     }
+    if (is_white) return pixel;
     ++pixel;
   }
 
