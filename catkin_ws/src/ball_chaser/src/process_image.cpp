@@ -32,8 +32,8 @@ void process_image_callback(const sensor_msgs::Image& img)
   // Depending on the white ball position, call the drive_bot function and pass velocities to it
   // Request a stop when there's no white ball seen by the camera
 
-  int white_index = find_white_index(img);
-  auto velocity = calculate_linear_and_angular_velocity(white_index, img.width);
+  int white_column = find_white_index(img);
+  auto velocity = calculate_linear_and_angular_velocity(white_column, img.width);
   drive_robot(velocity[0], velocity[1]);
 
 }
