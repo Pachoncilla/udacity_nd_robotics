@@ -18,9 +18,6 @@ bool handle_drive_request (ball_chaser::DriveToTarget::Request& request,
 
   wheel_command_publisher.publish(velocity);
 
-
-  ros::Duration(3).sleep();
-
   response.msg_feedback = "Angular velocities set - linear x: " +
                             std::to_string(request.linear_x) + " ,angular z: " +
                                                   std::to_string(request.angular_z);
