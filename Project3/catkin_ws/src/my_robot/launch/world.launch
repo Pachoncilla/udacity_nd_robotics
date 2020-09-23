@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <launch>
   <!-- Robot pose -->
   <arg name="x" default="6"/>
@@ -35,6 +33,7 @@
               -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
 
   <!--launch rviz-->
-  <node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
+  <node pkg="rviz" type="rviz" name="rviz"
+        args="-d /home/workspace/udacity_nd_robotics/Project3/catkin_ws/src/rviz_where_am_i.rviz"/>
 
 </launch>
