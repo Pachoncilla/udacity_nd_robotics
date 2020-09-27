@@ -16,10 +16,10 @@
         <param name="initial_pose_x" value="-6.5"/>
         <param name="initial_pose_y" value="-4.5"/>
 	<param name="initial_pose_a" value="-1.57"/>
-	<param name="update_min_d" value="0.1"/>
-	<param name="update_min_a" value="0.31416"/>
+	<param name="update_min_d" value="0.05"/>
+	<param name="update_min_a" value="0.15"/>
 	<param name="min_particles" value="100"/>
-	<param name="max_particles" value="1000"/>
+	<param name="max_particles" value="2000"/>
 	<param name="selective_resampling" value="true"/>
 	<param name="recovery_alpha_slow" value="0.001"/>
 	<param name="recovery_alpha_fast" value="0.2"/>
