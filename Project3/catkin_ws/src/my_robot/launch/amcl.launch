@@ -11,8 +11,27 @@
         <param name="odom_model_type" value="diff-corrected"/>
         <param name="base_frame_id" value="robot_footprint"/>
         <param name="global_frame_id" value="map"/>
-        <param name="initial_pose_x" value="-4"/>
-        <param name="initial_pose_y" value="-6"/>
+
+	<!-- Overall filter parameters -->
+        <param name="initial_pose_x" value="-6.5"/>
+        <param name="initial_pose_y" value="-4.5"/>
+	<param name="initial_pose_a" value="-1.57"/>
+	<param name="update_min_d" value="0.05"/>
+	<param name="update_min_a" value="0.15"/>
+	<param name="min_particles" value="100"/>
+	<param name="max_particles" value="2000"/>
+	<param name="selective_resampling" value="true"/>
+	<param name="recovery_alpha_slow" value="0.001"/>
+	<param name="recovery_alpha_fast" value="0.2"/>
+
+	<!-- Laser model parameters -->
+	<param name="laser_model_type" value="likelihood_field"/>
+	<param name="laser_z_hit" value="0.99"/>
+	<param name="laser_z_rand" value="0.01"/>
+
+	<!-- Odometry model parameters -->
+	<param name="odom_model_type" value="diff-corrected"/>
+
     </node>
 
     <!-- Move Base -->
